@@ -12,11 +12,11 @@ Follow the tutorial at [SFML](https://www.sfml-dev.org/tutorials/2.5/start-vc.ph
 
 ## Usage
 
-###W|A|S|D to move around
-###UP|DOWN to increase or decrease iterations
-###Mouse wheel to zoom in and out
-###R to restart
-###E to save image
+- W|A|S|D to move around 
+- UP|DOWN to increase or decrease iterations
+- Mouse wheel to zoom in and out 
+- R to restart
+- E to save image
 
 To chage colors edit
 ```c++
