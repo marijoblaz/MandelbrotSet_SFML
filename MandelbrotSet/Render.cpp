@@ -24,19 +24,13 @@ void Render::updateSFMLEvents()
             if (event.key.code == sf::Keyboard::R) { minRe = -2.5, maxRe = 1, minIm = -1, maxIm = 1; this->maxIter = 50; this->ui->setIterText(maxIter);
             }
 
-            if (event.key.code == sf::Keyboard::Up) { 
-                maxIter += 50; 
-                this->ui->setIterText(maxIter);
-            }
-            if (event.key.code == sf::Keyboard::Down) {
-                maxIter -= 50;
-                if (maxIter < 50){
-                    maxIter = 50;
-                }
-                this->ui->setIterText(maxIter);
-            }
-
             if (event.key.code == sf::Keyboard::Escape) { this->mWindow.close(); }
+            if (event.key.code == sf::Keyboard::L) {
+                std::cout << minRe << ", ";
+                std::cout << maxRe << ", ";
+                std::cout << minIm << ", ";
+                std::cout << maxIm << ".";
+            }
             if (event.key.code == sf::Keyboard::E) {
                 this->mbSetImage.saveToFile("MBset" + this->get_timestamp() + ".png");
             }
@@ -70,18 +64,22 @@ void Render::updateSFMLEvents()
                 if (event.mouseWheelScroll.wheel == sf::Mouse::VerticalWheel)
                 {
                     if (event.mouseWheelScroll.delta > 0) {
+                        maxIter += 20;
                         zoom_x(2);
                         zoom *= 2;
                         this->scale *= 2;
                         this->ui->setMagText(this->scale);
+                        this->ui->setIterText(maxIter);
                     }
                     else if (event.mouseWheelScroll.delta < 0) {
+                        maxIter -= 20;
                         zoom_x(1.0 / 2);
                         zoom /= 2;
                         if (!this->scale < 1) {
                             this->scale /= 2;
                             this->ui->setMagText(this->scale);
                         }
+                        this->ui->setIterText(maxIter);
                     }
                 }
                 this->renderMBSet();
@@ -171,7 +169,7 @@ void Render::renderMBSet()
     }
 }
 
-Render::Render() : mWindow(sf::VideoMode(WIDTH, HEIGHT), "MandelbrotSet", sf::Style::Fullscreen)
+Render::Render() : mWindow(sf::VideoMode(WIDTH, HEIGHT), "MandelbrotSet", sf::Style::Close)
 {
    this->mbSetImage.create(WIDTH, HEIGHT, sf::Color::Red);
    this->ui = new UI();

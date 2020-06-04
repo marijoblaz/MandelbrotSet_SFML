@@ -6,8 +6,8 @@ class Render
 {
 private: //VARS
 
-	float WIDTH = 1920;
-	float HEIGHT = 1080;
+	float WIDTH = 1200;
+	float HEIGHT = 720;
 
 	//scaled to lie in the Mandelbrot X scale (-2.5, 1))
 	double minRe = -2.5, maxRe = 1;
@@ -15,7 +15,7 @@ private: //VARS
 	double minIm = -1, maxIm = 1;
 
 	//Num of iterations
-	int maxIter = 100;
+	int maxIter = 127;
 	double zoom = 1.0;
 
 	sf::RenderWindow mWindow;
