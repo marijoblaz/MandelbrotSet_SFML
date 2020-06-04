@@ -1,6 +1,18 @@
 #pragma once
 //UI
-#include "UI.h"
+#include <iostream>
+#include <string>
+#include <SFML/Graphics.hpp>
+#include <cstdlib>
+#include <complex>
+#include <vector>
+#include <stdio.h>
+
+//Time for save
+#include <iomanip>
+#include <sstream>
+#include <chrono>
+#include <ctime>
 
 class Render
 {
@@ -23,8 +35,6 @@ private: //VARS
 	sf::Image mbSetImage;
 	sf::Sprite mbSetSprite;
 	sf::Texture mbSetTexture;
-
-	UI* ui;
 
 	int scale = 1;
 

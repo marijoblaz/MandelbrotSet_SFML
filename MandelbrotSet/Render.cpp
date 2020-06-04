@@ -14,15 +14,12 @@ void Render::updateSFMLEvents()
             double w = (maxRe - minRe) * 0.05;
             double h = (maxIm - minIm) * 0.05;
 
-            this->ui->setPosText(maxRe - 1, minIm + 1);
-
             if (event.key.code == sf::Keyboard::A) { minRe -= w, maxRe -= w; }
             if (event.key.code == sf::Keyboard::D) { minRe += w, maxRe += w; }
             if (event.key.code == sf::Keyboard::W) { minIm -= h, maxIm -= h; }
             if (event.key.code == sf::Keyboard::S) { minIm += h, maxIm += h; }
 
-            if (event.key.code == sf::Keyboard::R) { minRe = -2.5, maxRe = 1, minIm = -1, maxIm = 1; this->maxIter = 50; this->ui->setIterText(maxIter);
-            }
+            if (event.key.code == sf::Keyboard::R) { minRe = -2.5, maxRe = 1, minIm = -1, maxIm = 1; this->maxIter = 50;}
 
             if (event.key.code == sf::Keyboard::Escape) { this->mWindow.close(); }
             if (event.key.code == sf::Keyboard::L) {
@@ -40,7 +37,6 @@ void Render::updateSFMLEvents()
             //the more iteration level the better image result
         if (event.type == sf::Event::MouseWheelScrolled)
         {
-            this->ui->setPosText(maxRe, minRe);
 
             if (event.MouseWheelScrolled)
             {
@@ -66,20 +62,10 @@ void Render::updateSFMLEvents()
                     if (event.mouseWheelScroll.delta > 0) {
                         maxIter += 20;
                         zoom_x(2);
-                        zoom *= 2;
-                        this->scale *= 2;
-                        this->ui->setMagText(this->scale);
-                        this->ui->setIterText(maxIter);
                     }
                     else if (event.mouseWheelScroll.delta < 0) {
                         maxIter -= 20;
                         zoom_x(1.0 / 2);
-                        zoom /= 2;
-                        if (!this->scale < 1) {
-                            this->scale /= 2;
-                            this->ui->setMagText(this->scale);
-                        }
-                        this->ui->setIterText(maxIter);
                     }
                 }
                 this->renderMBSet();
@@ -91,8 +77,10 @@ void Render::updateSFMLEvents()
 void Render::render()
 {
     this->mWindow.clear();
+
+
+    //Game stuff
     this->mWindow.draw(mbSetSprite);
-    this->ui->render(this->mWindow);
     this->mWindow.display();
 }
 
@@ -162,7 +150,6 @@ sf::Color Render::getMendelColor(unsigned int x, unsigned int y) {
 
 void Render::renderMBSet()
 {
-
     for (unsigned int x = 0; x < WIDTH; x++) for (unsigned y = 0; y < HEIGHT; y++)
     {
         mbSetImage.setPixel(x, y, this->getMendelColor(x, y));
@@ -171,16 +158,16 @@ void Render::renderMBSet()
 
 Render::Render() : mWindow(sf::VideoMode(WIDTH, HEIGHT), "MandelbrotSet", sf::Style::Close)
 {
-   this->mbSetImage.create(WIDTH, HEIGHT, sf::Color::Red);
-   this->ui = new UI();
+    //Constructor
+    //Call menu
 
-   this->ui->setMagText(this->scale);
-   this->ui->setIterText(maxIter);
-   this->ui->setPosText(maxRe - 1, minIm + 1);
 
-   this->renderMBSet();
-   this->mbSetTexture.loadFromImage(mbSetImage);
-   this->mbSetSprite.setTexture(mbSetTexture);
+
+    //Game stuff
+    this->mbSetImage.create(WIDTH, HEIGHT, sf::Color::Red);
+    this->renderMBSet();
+    this->mbSetTexture.loadFromImage(mbSetImage);
+    this->mbSetSprite.setTexture(mbSetTexture);
 
 }
 void Render::run()
@@ -203,5 +190,4 @@ sf::Color Render::linear_interpolation(const sf::Color& v, const sf::Color& u, d
 }
 Render::~Render()
 {
-    delete this->ui;
 }
