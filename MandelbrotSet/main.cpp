@@ -1,12 +1,11 @@
-#include "Render.h"
+#include "Game.h"
 
 
 int main()
 {
+    Game game;
 
-    Render MBS;
-
-    MBS.run();
+    game.run();
 
     return 0;
 }

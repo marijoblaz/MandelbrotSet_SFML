@@ -1,7 +1,7 @@
-#include "Render.h"
+#include "Game.h"
 #pragma warning(disable : 4996) //_CRT_SECURE_NO_WARNINGS
 
-void Render::updateSFMLEvents()
+void Game::updateSFMLEvents()
 {
     sf::Event event;
 	while (this->mWindow.pollEvent(event))
@@ -74,7 +74,7 @@ void Render::updateSFMLEvents()
 	}
 }
 
-void Render::render()
+void Game::render()
 {
     this->mWindow.clear();
 
@@ -84,13 +84,13 @@ void Render::render()
     this->mWindow.display();
 }
 
-void Render::update()
+void Game::update()
 {
     this->mbSetTexture.loadFromImage(mbSetImage);
     this->mbSetSprite.setTexture(mbSetTexture);
 }
 
-std::string Render::get_timestamp()
+std::string Game::get_timestamp()
 {
     time_t rawtime;
     struct tm* timeinfo;
@@ -103,7 +103,7 @@ std::string Render::get_timestamp()
     return std::string(buffer);
 }
 
-sf::Color Render::getMendelColor(unsigned int x, unsigned int y) {
+sf::Color Game::getMendelColor(unsigned int x, unsigned int y) {
     //Mapping
     double cr = map(x, 0, WIDTH, minRe, maxRe);
     double ci = map(y, 0, HEIGHT, minIm, maxIm);
@@ -148,7 +148,7 @@ sf::Color Render::getMendelColor(unsigned int x, unsigned int y) {
     sf::Color c = linear_interpolation(color1, color2, mu - i_mu);
 }
 
-void Render::renderMBSet()
+void Game::renderMBSet()
 {
     for (unsigned int x = 0; x < WIDTH; x++) for (unsigned y = 0; y < HEIGHT; y++)
     {
@@ -156,7 +156,7 @@ void Render::renderMBSet()
     }
 }
 
-Render::Render() : mWindow(sf::VideoMode(WIDTH, HEIGHT), "MandelbrotSet", sf::Style::Close)
+Game::Game() : mWindow(sf::VideoMode(WIDTH, HEIGHT), "MandelbrotSet", sf::Style::Close)
 {
     //Constructor
     //Call menu
@@ -170,7 +170,7 @@ Render::Render() : mWindow(sf::VideoMode(WIDTH, HEIGHT), "MandelbrotSet", sf::St
     this->mbSetSprite.setTexture(mbSetTexture);
 
 }
-void Render::run()
+void Game::run()
 {
 	while (this->mWindow.isOpen())
 	{
@@ -179,15 +179,15 @@ void Render::run()
 		this->render();
 	}
 }
-double Render::map(double x, double in_min, double in_max, double out_min, double out_max)
+double Game::map(double x, double in_min, double in_max, double out_min, double out_max)
 {
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
-sf::Color Render::linear_interpolation(const sf::Color& v, const sf::Color& u, double a)
+sf::Color Game::linear_interpolation(const sf::Color& v, const sf::Color& u, double a)
 {
     auto const b = 1 - a;
     return sf::Color(b * v.r + a * u.r, b * v.g + a * u.g, b * v.b + a * u.b);
 }
-Render::~Render()
+Game::~Game()
 {
 }
