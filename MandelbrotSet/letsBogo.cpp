@@ -76,8 +76,7 @@ void letsBogo::initShapes()
     this->InfoText.setPosition(80.f, 550.f);
     this->InfoText.setString("BOGOSORT - U trenutku kad su sva cetiri elementa sortirana pobijedili ste");
 
-    if (this->backgroundTexture.loadFromFile("resources/background.jpg")) {
-        this->backgroundTexture.setSmooth(true);
+    if (this->backgroundTexture.loadFromFile("resources/background2.png")) {
         this->backgroundSprite.setTexture(this->backgroundTexture);
     }
     this->backgroundSprite.setPosition(0.f, 0.f);

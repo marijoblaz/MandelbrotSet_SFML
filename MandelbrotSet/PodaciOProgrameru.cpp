@@ -16,8 +16,7 @@ PodaciOProgrameru::PodaciOProgrameru(sf::RenderWindow* window, std::stack<State*
     this->imePrezimeText.setOutlineThickness(8);
     this->imePrezimeText.setPosition(275.f, 0.f);
 
-    if (this->backgroundTexture.loadFromFile("resources/background.jpg")) {
-        this->backgroundTexture.setSmooth(true);
+    if (this->backgroundTexture.loadFromFile("resources/background5.jpg")) {
         this->backgroundSprite.setTexture(this->backgroundTexture);
     }
     this->backgroundSprite.setPosition(0.f, 0.f);
