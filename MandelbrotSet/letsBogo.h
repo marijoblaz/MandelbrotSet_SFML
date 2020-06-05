@@ -1,7 +1,17 @@
-#pragma once
+﻿#pragma once
 #include "State.h"
 #include <vector>
 #include <algorithm>
+
+/*
+
+Funkcionalnost 41.	 (Bodova: 5) Dodajte na početni ekran novu opciju „Mini igra 1: Lets Bogo!“ koja korisnika vodi na novi ekran. 
+Dolaskom na taj ekran, prikažite korisniku tri elementa. 
+Kad korisnik odabere opciju (gumb ili što god odaberete), presložite te elemente slučajnim rasporedom. 
+U trenutku kad su sva četiri elementa sortirana, prikažite korisniku poruku da je pobijedio, 
+ispišite u koliko pokušaja i vratite ga na početni ekran.
+
+*/
 
 class letsBogo : public State
 {

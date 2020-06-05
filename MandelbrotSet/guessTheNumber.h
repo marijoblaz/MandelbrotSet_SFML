@@ -1,4 +1,4 @@
-
+﻿
 #pragma once
 #include "State.h"
 #include <vector>
@@ -6,6 +6,16 @@
 #include <sstream> 
 #include <random>
 #include <chrono>
+/*
+
+Funkcionalnost 42.	 (Bodova: 6) Dodajte na početni ekran novu opciju „Mini igra 2: 
+Guess the number“ koja korisnika vodi na novi ekran. Dolaskom na taj ekran, generirajte jedan slučajni broj n između 1 i 100.000.000 
+te pitajte korisnika da upiše koliko milisekundi misli da će trajati razbacivanje, sortiranje i binarno pretraživanje polja veličine n u potrazi za brojem 7.
+Kad korisnik upiše vrijednost, generirajte polje s vrijednostima od 1 do n, razbacajte ga, sortirajte ga te binarnim pretraživanjem i pronađite broj 7. 
+Ispišite korisniku kolika je razlika između njegove pogođene vrijednosti trajanja i konkretnog trajanja.
+
+
+*/
 
 class guessTheNumber : public State
 {
@@ -33,7 +43,7 @@ private:
 
 
 	//Random num and Text
-	int randNum = 0;
+	unsigned long long randNum = 0;
 	sf::Text generatedRandNumText;
 	std::vector<int> vektorIntova;
 
@@ -51,6 +61,7 @@ private:
 	void razbacajVektor();
 	void sortirajVektor();
 	void trazimSedam();
+	long generate1();
 
 public:
 	guessTheNumber(sf::RenderWindow* window, std::stack<State*>* states);

@@ -46,6 +46,24 @@ void theMergeDance::initShapes()
     }
     this->backgroundSprite.setPosition(0.f, 0.f);
 
+    this->playerText.setFont(font);
+    this->playerText.setCharacterSize(25);
+    this->playerText.setPosition(sf::Vector2f(10, 100));
+
+}
+
+void theMergeDance::napraviPolje()
+{
+    for (int i = 0; i < poljeSize; i++)
+    {
+        this->vektor.push_back(i);
+    }
+}
+
+void theMergeDance::razbacajPolje()
+{
+    auto rng = std::default_random_engine{};
+    std::shuffle(std::begin(this->vektor), std::end(this->vektor), rng);
 }
 
 
@@ -68,15 +86,36 @@ theMergeDance::~theMergeDance()
 void theMergeDance::update()
 {
     this->updateButtons();
+    if (start) {
+
+        start = false;
+    }
 }
 
 void theMergeDance::render()
 {
     this->mWindow->draw(backgroundSprite);
+    this->mWindow->draw(playerText);
     this->renderButtons();
 
 }
 
 void theMergeDance::updateSFMLevents(sf::Event* event)
 {
+    if (event->type == sf::Event::TextEntered) {
+
+        if (event->text.unicode == '\b') { // handle backspace explicitly
+            if (!playerInput.isEmpty())
+                playerInput.erase(playerInput.getSize() - 1, 1);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter)) { // handle backspace explicitly
+            std::stringstream ss(playerInput);
+            ss >> this->poljeSize;
+            this->start = true;
+        }
+        else if ((event->text.unicode > 47 && event->text.unicode < 58) && playerInput.getSize() < 8) { // all other keypresses
+            playerInput += static_cast<char>(event->text.unicode);
+        }
+    }
+    playerText.setString("Koliko veliko polje zelite sortirati: " + playerInput);
 }

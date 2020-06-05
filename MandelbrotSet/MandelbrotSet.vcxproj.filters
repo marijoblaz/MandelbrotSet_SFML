@@ -45,6 +45,9 @@
     <ClCompile Include="theMergeDance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="merge_sort.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Menu.h">
@@ -72,6 +75,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="theMergeDance.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="merge_sort.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

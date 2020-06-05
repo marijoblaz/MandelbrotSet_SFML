@@ -86,7 +86,7 @@ void guessTheNumber::initShapes()
 
 void guessTheNumber::napuniVektor()
 {
-    for (int i = 0; i < randNum; i++)
+    for (unsigned long long i = 0; i < randNum; i++)
     {
         this->vektorIntova.push_back(i);
     }
@@ -108,6 +108,32 @@ void guessTheNumber::trazimSedam()
     std::binary_search(vektorIntova.begin(), vektorIntova.end(), 7);
 }
 
+long guessTheNumber::generate1()
+{
+    static const int p6 = 1e6;
+    static const int p5 = 1e5;
+    static const int p4 = 1e4;
+    static const int p3 = 1e3;
+    static const int p2 = 1e2;
+    static const int p1 = 1e1;
+
+    static int digit[7];
+
+    digit[6] = rand() % 30 + 1;
+
+    for (int i = 5; i >= 0; i--)
+        digit[i] = rand() % 10 + 1;
+
+    return digit[6] * p6
+        + digit[5] * p5
+        + digit[4] * p4
+        + digit[3] * p3
+        + digit[2] * p2
+        + digit[1] * p1
+        + digit[0];
+}
+
+
 
 guessTheNumber::guessTheNumber(sf::RenderWindow* window, std::stack<State*>* states) : State(window, states)
 {
@@ -115,10 +141,8 @@ guessTheNumber::guessTheNumber(sf::RenderWindow* window, std::stack<State*>* sta
     this->initButtons();
     this->initShapes();
 
-    this->randNum = rand() % 10000000 + 1;
+    this->randNum = generate1()/2;
     this->generatedRandNumText.setString("Slucajni broj n izmedu 1 i 100.000.000: "+std::to_string(randNum));
-
-
 }
 
 guessTheNumber::~guessTheNumber()
