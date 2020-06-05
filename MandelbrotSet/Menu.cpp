@@ -11,39 +11,39 @@ void Menu::initButtons()
 
     buttons["START"] = new Button(850, 400, 100, 50,
         &font, "START",
-        sf::Color(0, 0, 0),
+        sf::Color(20, 20, 20),
         sf::Color(255, 255, 255),
-        sf::Color(40, 40, 40), this->mWindow, BTN_STANDARD);
+        sf::Color(60, 60, 60), this->mWindow, BTN_STANDARD);
 
-    buttons["PODACI O PROGRAMERU"] = new Button(700, 500, 350, 50,
+    buttons["PODACI O PROGRAMERU"] = new Button(725, 500, 350, 50,
         &font, "PODACI O PROGRAMERU",
-        sf::Color(0, 0, 0),
+        sf::Color(20, 20, 20),
         sf::Color(255, 255, 255),
-        sf::Color(40, 40, 40), this->mWindow, BTN_STANDARD);
+        sf::Color(60, 60, 60), this->mWindow, BTN_STANDARD);
 
     buttons["QUIT"] = new Button(850, 600, 100, 50,
         &font, "QUIT",
-        sf::Color(0, 0, 0),
+        sf::Color(20, 20, 20),
         sf::Color(255, 255, 255),
-        sf::Color(40, 40, 40), this->mWindow, BTN_STANDARD);
+        sf::Color(60, 60, 60), this->mWindow, BTN_STANDARD);
     
     buttons["Lets Bogo!"] = new Button(250, 400, 200, 50,
         &font, "Lets Bogo!",
-        sf::Color(0, 0, 0),
+        sf::Color(20, 20, 20),
         sf::Color(255, 255, 255),
-        sf::Color(40, 40, 40), this->mWindow, BTN_STANDARD);
+        sf::Color(60, 60, 60), this->mWindow, BTN_STANDARD);
 
     buttons["Guess the number!"] = new Button(200, 500, 300, 50,
         &font, "Guess the number!",
-        sf::Color(0, 0, 0),
+        sf::Color(20, 20, 20),
         sf::Color(255, 255, 255),
-        sf::Color(40, 40, 40), this->mWindow, BTN_STANDARD);
+        sf::Color(60, 60, 60), this->mWindow, BTN_STANDARD);
 
     buttons["The Merge Dance!"] = new Button(200, 600, 300, 50,
         &font, "The Merge Dance!",
-        sf::Color(0, 0, 0),
+        sf::Color(20, 20, 20),
         sf::Color(255, 255, 255),
-        sf::Color(40, 40, 40), this->mWindow, BTN_STANDARD);
+        sf::Color(60, 60, 60), this->mWindow, BTN_STANDARD);
 }
 
 void Menu::renderButtons()
@@ -77,6 +77,18 @@ void Menu::updateButtons()
     if (buttons["QUIT"]->isPressed()) {
         this->endState();
     }
+    //Plays the mgame1
+    if (buttons["Lets Bogo!"]->isPressed()) {
+        this->states->push(new letsBogo(this->mWindow, this->states));
+    }
+    //Plays the mgame2
+    if (buttons["Guess the number!"]->isPressed()) {
+        this->states->push(new guessTheNumber(this->mWindow, this->states));
+    }
+    //Plays the mgame3
+    if (buttons["The Merge Dance!"]->isPressed()) {
+        this->states->push(new theMergeDance(this->mWindow, this->states));
+    }
 }
 
 void Menu::initGameNameText()
@@ -109,7 +121,7 @@ Menu::Menu(sf::RenderWindow* window, std::stack<State*>* states) : State(window,
 
 Menu::~Menu()
 {
-    //Rendering the buttons
+    //Deleting
     for (auto& it : buttons)
     {
         delete it.second;

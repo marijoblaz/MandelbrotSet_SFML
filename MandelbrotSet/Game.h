@@ -1,6 +1,17 @@
-#pragma once
+﻿#pragma once
 
 #include "Menu.h"
+
+/*
+Funkcionalnost 31.	 (Bodova: 2) 
+Igra mora imati početni ekran u kojemu igrač može minimalno: 
+
+1. započeti igru, 
+2. izaći iz aplikacije,
+3. vidjeti podatke o programeru koji je napravio igru.
+
+
+*/
 
 class Game
 {

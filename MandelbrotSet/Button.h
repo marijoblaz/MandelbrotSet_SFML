@@ -7,6 +7,7 @@
 
 #include <string>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <cstdlib>
 #include <complex>
 #include <vector>

@@ -150,19 +150,25 @@
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="guessTheNumber.cpp" />
+    <ClCompile Include="letsBogo.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="PodaciOProgrameru.cpp" />
     <ClCompile Include="State.cpp" />
+    <ClCompile Include="theMergeDance.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="guessTheNumber.h" />
+    <ClInclude Include="letsBogo.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="PodaciOProgrameru.h" />
     <ClInclude Include="State.h" />
+    <ClInclude Include="theMergeDance.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -3,12 +3,24 @@
 #include "GameState.h"
 #include "PodaciOProgrameru.h"
 #include "State.h"
+#include "guessTheNumber.h"
+#include "theMergeDance.h"
+
+//Minigames
+#include "letsBogo.h"
 
 
 class Menu : public State
 {
 private:
 
+
+	/*
+	
+	Funkcionalnost 34.	 (Bodova: 2) Osmislite prikladnu funkcionalnost u igri u kojoj koristite map.
+
+							Map koristim kao spremink za buttone
+	*/
 	std::map<std::string, Button*> buttons;
 
 	sf::RenderWindow* mWindow;

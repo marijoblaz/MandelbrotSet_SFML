@@ -43,6 +43,8 @@ sf::Color GameState::getMendelColor(unsigned int x, unsigned int y) {
         if (re * re + im * im > 2) break;
 
     }
+    if (iter == maxIter)
+        iter = 0;
 
     static const std::vector<sf::Color> colors{
         {0,0,0},
@@ -51,12 +53,12 @@ sf::Color GameState::getMendelColor(unsigned int x, unsigned int y) {
         {62,123,89},
         {43,30,118},
         {0,55,247},
+        {100,0,0},
+        {0,100,0},
     };
 
     static const auto max_color = colors.size() - 1;
 
-    if (iter == maxIter)
-        iter = 0;
 
     double mu = 1.0 * iter / maxIter;
 
