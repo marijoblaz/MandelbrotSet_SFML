@@ -1,36 +1,47 @@
 #pragma once
 //UI
-#include <iostream>
-#include <string>
-#include <SFML/Graphics.hpp>
-#include <cstdlib>
-#include <complex>
-#include <vector>
-#include <stdio.h>
+#include "GameState.h"
+#include "PodaciOProgrameru.h"
+#include "State.h"
 
-//Time for save
-#include <iomanip>
-#include <sstream>
-#include <chrono>
-#include <ctime>
 
-class Menu
+class Menu : public State
 {
 private:
 
+	std::map<std::string, Button*> buttons;
+
 	sf::RenderWindow* mWindow;
 	sf::Font font;
+
+	//Text
+	sf::Text gameNameText;
+
+	//Background
+	sf::Texture backgroundTexture;
+	sf::Sprite backgroundSprite;
+
+	//Quit
+	bool meQuit = false;
+	bool startGame = false;
+	bool startPodacioProgrameru = false;
 
 	void initFont();
 	void initButtons();
 	void renderButtons();
 	void updateButtons();
+	void initGameNameText();
+	void initBackground();
+
 
 public:
-	Menu(sf::RenderWindow* window);
+	Menu(sf::RenderWindow* window, std::stack<State*>* states);
 	~Menu();
 
 	void render();
-	void update(sf::RenderTarget* target);
+	void update();
+
+	//inde
+	void updateSFMLevents(sf::Event* event);
 };
 
