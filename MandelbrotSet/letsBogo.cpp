@@ -64,6 +64,8 @@ void letsBogo::initShapes()
     this->backShape.setSize(sf::Vector2f(600, 350));
     this->backShape.setPosition(sf::Vector2f(300, 150));
     this->backShape.setFillColor(sf::Color::Black);
+    this->backShape.setOutlineColor(sf::Color::White);
+    this->backShape.setOutlineThickness(2);
 
     this->numOfTriesText.setFont(font);
     this->numOfTriesText.setCharacterSize(40);

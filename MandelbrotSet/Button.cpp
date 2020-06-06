@@ -94,7 +94,7 @@ void Button::updatePress()
 				if (this->elapsed1.asMilliseconds() > 250) {
 					this->toogle = !this->toogle;
 					this->buttonState = BTN_PRESSED;
-					std::cout << toogle << std::endl;
+					//std::cout << toogle << std::endl;
 					this->clock.restart();
 				}
 
