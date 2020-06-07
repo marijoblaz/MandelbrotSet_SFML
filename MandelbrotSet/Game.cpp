@@ -86,5 +86,5 @@ void Game::run()
 
 Game::~Game()
 {
-    delete menu;
+    delete this->menu;
 }

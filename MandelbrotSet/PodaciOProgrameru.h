@@ -29,10 +29,15 @@ private:
 
 	sf::Clock clock; // starts the clock
 	sf::Time elapsed1;
+
+	//interval
 	int interval = 5;
 	bool animDown = true;
 	sf::Music music;
 
+	//Rotation
+	sf::Text info;
+	int cnt = 0;
 
 	//Background
 	sf::Texture backgroundTexture;

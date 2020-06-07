@@ -183,32 +183,44 @@ void GameState::initText()
     this->maxIterationsText.setCharacterSize(20);
     this->maxIterationsText.setColor(sf::Color::White);
     this->maxIterationsText.setPosition(10, 10);
+    this->maxIterationsText.setOutlineThickness(1);
+    this->maxIterationsText.setOutlineColor(sf::Color::Black);
 
     this->infoText.setFont(this->font);
     this->infoText.setCharacterSize(18);
     this->infoText.setColor(sf::Color::White);
     this->infoText.setPosition(1020, 350);
     this->infoText.setString("COLOR PRESETS");
+    this->infoText.setOutlineThickness(1);
+    this->infoText.setOutlineColor(sf::Color::Black);
 
     this->currentIterationsText.setFont(this->font);
     this->currentIterationsText.setCharacterSize(20);
     this->currentIterationsText.setColor(sf::Color::White);
     this->currentIterationsText.setPosition(10, 40);
+    this->currentIterationsText.setOutlineThickness(1);
+    this->currentIterationsText.setOutlineColor(sf::Color::Black);
 
     this->analysedImageText.setFont(this->font);
     this->analysedImageText.setCharacterSize(20);
     this->analysedImageText.setColor(sf::Color::White);
     this->analysedImageText.setPosition(10, 70);
+    this->analysedImageText.setOutlineThickness(1);
+    this->analysedImageText.setOutlineColor(sf::Color::Black);
 
     this->analysedImageText2.setFont(this->font);
     this->analysedImageText2.setCharacterSize(20);
     this->analysedImageText2.setColor(sf::Color::White);
     this->analysedImageText2.setPosition(10, 95);
+    this->analysedImageText2.setOutlineThickness(1);
+    this->analysedImageText2.setOutlineColor(sf::Color::Black);
 
     this->locationText.setFont(this->font);
     this->locationText.setCharacterSize(20);
     this->locationText.setColor(sf::Color::White);
     this->locationText.setPosition(500, 680);
+    this->locationText.setOutlineThickness(1);
+    this->locationText.setOutlineColor(sf::Color::Black);
 }
 
 void GameState::renderButtons()
@@ -345,7 +357,7 @@ void GameState::updateLocations()
 void GameState::zoomIn(bool overRide)
 {
     if (autoIterations || overRide) {
-        maxIter += 10;
+        maxIter += 30;
         this->maxIterations.insert(maxIter);
         this->currentIterationsText.setString("Curr iteration: " + std::to_string(maxIter));
     }
@@ -356,7 +368,7 @@ void GameState::zoomOut(bool overRide)
 {
     if (autoIterations || overRide) {
         if (maxIter > 10) {
-            maxIter -= 10;
+            maxIter -= 30;
             this->maxIterations.insert(maxIter);
             this->currentIterationsText.setString("Curr iteration: " + std::to_string(maxIter));
         }

@@ -9,6 +9,11 @@ PodaciOProgrameru::PodaciOProgrameru(sf::RenderWindow* window, std::stack<State*
 
     this->font.loadFromFile("Fonts/arial.ttf");
 
+    this->info.setFont(this->font);
+    this->info.setCharacterSize(20);
+    this->info.setRotation(45);
+    this->info.setPosition(800, 360);
+    this->info.setString("This is a cringy screen!");
 
     this->imePrezimeText.setFont(this->font);
     this->imePrezimeText.setCharacterSize(100);
@@ -47,6 +52,7 @@ void PodaciOProgrameru::update()
 
     //startAnimation
     if (elapsed1.asMilliseconds() > interval) {
+      
         if (animDown) {
             this->startAnim++;
             this->imePrezimeText.setString("Marijo Blazevic");
@@ -58,6 +64,7 @@ void PodaciOProgrameru::update()
         }
         
 
+        this->info.setRotation(cnt++);
         if (this->imePrezimeText.getPosition().y > this->mWindow->getSize().y - 100) {
             this->animDown = false;
            
@@ -92,6 +99,7 @@ void PodaciOProgrameru::render()
 {
     this->mWindow->draw(this->backgroundSprite);
     this->mWindow->draw(this->imePrezimeText);
+    this->mWindow->draw(this->info);
 
     //Rendering the buttons
     for (auto& it : buttons)
@@ -102,6 +110,7 @@ void PodaciOProgrameru::render()
 
 void PodaciOProgrameru::updateSFMLevents(sf::Event* event)
 {
+    //Empty must ex.
 }
 
 bool PodaciOProgrameru::getQuit()
@@ -111,4 +120,5 @@ bool PodaciOProgrameru::getQuit()
 
 void PodaciOProgrameru::setQuit(bool quit)
 {
+    //Empty must ex.
 }

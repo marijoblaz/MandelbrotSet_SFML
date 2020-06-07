@@ -10,7 +10,6 @@ Igra mora imati početni ekran u kojemu igrač može minimalno:
 2. izaći iz aplikacije,
 3. vidjeti podatke o programeru koji je napravio igru.
 
-
 */
 
 class Game
