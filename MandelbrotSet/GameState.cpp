@@ -1,7 +1,8 @@
 ﻿#include "GameState.h"
 #pragma warning(disable : 4996) //_CRT_SECURE_NO_WARNINGS
 
-
+// making typedef for short declaration of ms
+typedef std::unordered_multiset<int>::iterator umit;
 
 std::string GameState::get_timestamp()
 {
@@ -25,6 +26,13 @@ void GameState::renderMBSet()
 
     this->mbSetTexture.loadFromImage(mbSetImage);
     this->mbSetSprite.setTexture(mbSetTexture);
+
+    this->miniRedImage();
+    this->miniGreenImage();
+    this->miniBlueImage();
+
+    this->decryptImage();
+
 }
 
 sf::Color GameState::getMendelColor(unsigned int x, unsigned int y) {
@@ -127,14 +135,60 @@ void GameState::initButtons()
         sf::Color(0, 0, 0),
         sf::Color(0, 255, 0),
         sf::Color(40, 40, 40), this->mWindow, BTN_STANDARD);
+
+
+    buttons["PR1"] = new Button(1035, 375, 120, 71,
+        &font, "",
+        sf::Color(0, 0, 0),
+        sf::Color(0, 255, 0),
+        sf::Color(40, 40, 40), this->mWindow, BTN_STANDARD);
+
+    buttons["PR2"] = new Button(1035, 450, 120, 71,
+        &font, "",
+        sf::Color(0, 0, 0),
+        sf::Color(0, 0, 0),
+        sf::Color(40, 40, 40), this->mWindow, BTN_STANDARD);
+
+    buttons["PR3"] = new Button(1035, 525, 120, 71,
+        &font, "",
+        sf::Color(0, 0, 0),
+        sf::Color(0, 0, 0),
+        sf::Color(40, 40, 40), this->mWindow, BTN_STANDARD);
 }
 
 void GameState::initText()
 {
+    if (this->backgroundHelpTexture.loadFromFile("resources/help.png")) {
+        this->backgroundHelpSprite.setTexture(this->backgroundHelpTexture);
+    }
+    this->backgroundHelpSprite.setPosition(100.f, 250.f);
+
+    this->redBarShape.setFillColor(sf::Color::Red);
+    this->greenBarShape.setFillColor(sf::Color::Green);
+    this->blueBarShape.setFillColor(sf::Color::Blue);
+
+    this->redBarShape.setPosition(sf::Vector2f(1000,30));
+    this->greenBarShape.setPosition(sf::Vector2f(1050,30));
+    this->blueBarShape.setPosition(sf::Vector2f(1100,30));
+
+    this->redBarShape.setSize(sf::Vector2f(20, 255));
+    this->greenBarShape.setSize(sf::Vector2f(20, 255));
+    this->blueBarShape.setSize(sf::Vector2f(20, 255));
+
+    this->redBarShape.setOutlineThickness(1);
+    this->greenBarShape.setOutlineThickness(1);
+    this->blueBarShape.setOutlineThickness(1);
+
     this->maxIterationsText.setFont(this->font);
     this->maxIterationsText.setCharacterSize(20);
     this->maxIterationsText.setColor(sf::Color::White);
     this->maxIterationsText.setPosition(10, 10);
+
+    this->infoText.setFont(this->font);
+    this->infoText.setCharacterSize(18);
+    this->infoText.setColor(sf::Color::White);
+    this->infoText.setPosition(1020, 350);
+    this->infoText.setString("COLOR PRESETS");
 
     this->currentIterationsText.setFont(this->font);
     this->currentIterationsText.setCharacterSize(20);
@@ -234,6 +288,28 @@ void GameState::updateButtons()
         this->states->top()->setImage(&this->mbSetImage);
         clock.restart();
     }
+
+    //Save loc
+    if (buttons["PR1"]->isPressed() && elapsed1.asMilliseconds() > interval) {
+        this->colorsPresetActive.clear();
+        this->colorsPresetActive = this->colorsPreset2;
+        this->renderMBSet();
+        clock.restart();
+    }
+    //Save loc
+    if (buttons["PR2"]->isPressed() && elapsed1.asMilliseconds() > interval) {
+        this->colorsPresetActive.clear();
+        this->colorsPresetActive = this->colorsPreset3;
+        this->renderMBSet();
+        clock.restart();
+    } 
+    //Save loc
+    if (buttons["PR3"]->isPressed() && elapsed1.asMilliseconds() > interval) {
+        this->colorsPresetActive.clear();
+        this->colorsPresetActive = this->colorsPreset1;
+        this->renderMBSet();
+        clock.restart();
+    }
 }
 
 void GameState::updateMaxIterationsText()
@@ -288,6 +364,99 @@ void GameState::zoomOut(bool overRide)
    
 }
 
+void GameState::miniRedImage()
+{
+    this->mbSetSpriteScaled = this->mbSetSprite;
+    this->mbSetSpriteScaled.setScale(0.1f, 0.1f);
+    this->mbSetSpriteScaled.setPosition(1035, 375);
+    this->mbSetTextureScaled = *this->mbSetSpriteScaled.getTexture();
+    this->mbSetImageScaled = this->mbSetTextureScaled.copyToImage();
+
+    for (int x = 0; x < this->mbSetImageScaled.getSize().x; x++)
+    {
+        for (int y = 0; y < this->mbSetImageScaled.getSize().y; y++)
+        {
+            int redColor = 0;
+            int greenColor = 0;
+            int blueColor = 0;
+
+            redColor = this->mbSetImageScaled.getPixel(x, y).r;
+            greenColor = this->mbSetImageScaled.getPixel(x, y).g;
+            blueColor = this->mbSetImageScaled.getPixel(x, y).b;
+
+            redColor += 100;
+
+            this->mbSetImageScaled.setPixel(x, y, sf::Color(redColor, greenColor, blueColor, 255));
+        }
+
+    }
+
+    this->mbSetTextureScaled.loadFromImage(this->mbSetImageScaled);
+    this->mbSetSpriteScaled.setTexture(mbSetTextureScaled);
+}
+
+void GameState::miniGreenImage()
+{
+    this->mbSetSpriteScaled1 = this->mbSetSprite;
+    this->mbSetSpriteScaled1.setScale(0.1f, 0.1f);
+    this->mbSetSpriteScaled1.setPosition(1035, 450);
+    this->mbSetTextureScaled1 = *this->mbSetSpriteScaled1.getTexture();
+    this->mbSetImageScaled1 = this->mbSetTextureScaled1.copyToImage();
+
+    for (int x = 0; x < this->mbSetImageScaled1.getSize().x; x++)
+    {
+        for (int y = 0; y < this->mbSetImageScaled1.getSize().y; y++)
+        {
+            int redColor = 0;
+            int greenColor = 0;
+            int blueColor = 0;
+
+            redColor = this->mbSetImageScaled1.getPixel(x, y).r;
+            greenColor = this->mbSetImageScaled1.getPixel(x, y).g;
+            blueColor = this->mbSetImageScaled1.getPixel(x, y).b;
+
+            greenColor += 100;
+
+            this->mbSetImageScaled1.setPixel(x, y, sf::Color(redColor, greenColor, blueColor, 255));
+        }
+
+    }
+
+    this->mbSetTextureScaled1.loadFromImage(this->mbSetImageScaled1);
+    this->mbSetSpriteScaled1.setTexture(mbSetTextureScaled1);
+}
+
+void GameState::miniBlueImage()
+{
+    this->mbSetSpriteScaled2 = this->mbSetSprite;
+    this->mbSetSpriteScaled2.setScale(0.1f, 0.1f);
+    this->mbSetSpriteScaled2.setPosition(1035, 525);
+    this->mbSetTextureScaled2 = *this->mbSetSpriteScaled2.getTexture();
+    this->mbSetImageScaled2 = this->mbSetTextureScaled2.copyToImage();
+
+    for (int x = 0; x < this->mbSetImageScaled2.getSize().x; x++)
+    {
+        for (int y = 0; y < this->mbSetImageScaled2.getSize().y; y++)
+        {
+            int redColor = 0;
+            int greenColor = 0;
+            int blueColor = 0;
+
+            redColor = this->mbSetImageScaled2.getPixel(x, y).r;
+            greenColor = this->mbSetImageScaled2.getPixel(x, y).g;
+            blueColor = this->mbSetImageScaled2.getPixel(x, y).b;
+
+            blueColor += 100;
+
+            this->mbSetImageScaled2.setPixel(x, y, sf::Color(redColor, greenColor, blueColor, 255));
+        }
+
+    }
+
+    this->mbSetTextureScaled2.loadFromImage(this->mbSetImageScaled2);
+    this->mbSetSpriteScaled2.setTexture(mbSetTextureScaled2);
+}
+
 int GameState::getImageAnalyse()
 {
 
@@ -312,6 +481,59 @@ int GameState::getImageAnalyse()
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;;
 }
 
+int GameState::map2(unsigned long long int x, unsigned long long int in_min, unsigned long long int in_max, unsigned long long int out_min, unsigned long long int out_max)
+{
+   return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min; 
+}
+
+void GameState::decryptImage()
+{
+    this->redValue.clear();
+    this->greenValue.clear();
+    this->BlueValue.clear();
+
+    this->redValueInt = 0;
+    this->greenValueInt = 0;
+    this->blueValueInt = 0;
+
+    for (int x = 300; x < this->mbSetImage.getSize().x/2; x++)
+    {
+        for (int y = 180; y < this->mbSetImage.getSize().y/2; y++)
+        {
+            this->redValue.insert(this->mbSetImage.getPixel(x,y).r);
+            this->greenValue.insert(this->mbSetImage.getPixel(x,y).g);
+            this->BlueValue.insert(this->mbSetImage.getPixel(x,y).b);
+
+        }
+    }
+
+    //  begin() returns iterator to first element of set 
+    umit it = redValue.begin();
+    for (; it != redValue.end(); it++) {
+        if (*it == 0) redValue.erase(it);
+        this->redValueInt += *it;
+    }
+
+    //  begin() returns iterator to first element of set 
+    it = greenValue.begin();
+    for (; it != greenValue.end(); it++) {
+        if (*it == 0) greenValue.erase(it);
+        this->greenValueInt += *it;
+    }
+
+    //  begin() returns iterator to first element of set 
+    it = BlueValue.begin();
+    for (; it != BlueValue.end(); it++) {
+        if (*it == 0) BlueValue.erase(it);
+        this->blueValueInt += *it;
+    }
+
+    this->redBarShape.setSize(sf::Vector2f(20, map2(redValueInt,0,4000000,1,100)));
+    this->greenBarShape.setSize(sf::Vector2f(20, map2(greenValueInt, 0, 4000000, 1, 100)));
+    this->blueBarShape.setSize(sf::Vector2f(20, map2(blueValueInt, 0, 4000000, 1, 100)));
+
+}
+
 GameState::GameState(sf::RenderWindow* window, std::stack<State*>* states) : State(window, states)
 {
     this->mWindow = window;
@@ -330,16 +552,28 @@ void GameState::render()
 {
     this->mWindow->draw(mbSetSprite);
     this->renderButtons();
+    this->mWindow->draw(mbSetSpriteScaled);
+    this->mWindow->draw(mbSetSpriteScaled1);
+    this->mWindow->draw(mbSetSpriteScaled2);
     this->mWindow->draw(this->maxIterationsText);
     this->mWindow->draw(this->currentIterationsText);
     this->mWindow->draw(this->locationText);
     this->mWindow->draw(this->analysedImageText);
     this->mWindow->draw(this->analysedImageText2);
+    this->mWindow->draw(this->infoText);
+    this->mWindow->draw(this->redBarShape);
+    this->mWindow->draw(this->greenBarShape);
+    this->mWindow->draw(this->blueBarShape);
+    
+    if (!this->helpExit) {
+        this->mWindow->draw(this->backgroundHelpSprite);
+    }
 }
 
 void GameState::updateSFMLevents(sf::Event* event)
 {
     if (event->type == sf::Event::KeyPressed) {
+        this->helpExit = true;
         //move delta
         double w = (maxRe - minRe) * 0.05;
         double h = (maxIm - minIm) * 0.05;
@@ -350,9 +584,6 @@ void GameState::updateSFMLevents(sf::Event* event)
         if (event->key.code == sf::Keyboard::S) { minIm += h, maxIm += h; }
 
         if (event->key.code == sf::Keyboard::R) { minRe = -2.5, maxRe = 1, minIm = -1, maxIm = 1; this->maxIter = 50; }
-        if (event->key.code == sf::Keyboard::O) {
-            
-        }
 
         if (event->key.code == sf::Keyboard::Escape) { this->endState(); }
 
@@ -365,7 +596,7 @@ void GameState::updateSFMLevents(sf::Event* event)
         //the more iteration level the better image result
     if (event->type == sf::Event::MouseWheelScrolled)
     {
-
+        this->helpExit = true;
         if (event->MouseWheelScrolled)
         {
             auto zoom_x = [&](double z)

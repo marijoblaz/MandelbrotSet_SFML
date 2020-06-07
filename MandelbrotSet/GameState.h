@@ -5,6 +5,7 @@
 
 #include <fstream>
 #include <queue>
+#include <unordered_set>
 
 class GameState : public State
 {
@@ -17,12 +18,14 @@ private: //VARS
 	sf::Time elapsed1;
 	int interval = 250;
 
-	
-
 	//Koristim map
 	std::map<std::string, Button*> buttons;
 
+	//Background
+	sf::Texture backgroundHelpTexture;
+	sf::Sprite backgroundHelpSprite;
 
+	bool helpExit = false;
 
 	//color presets
 	const std::vector<sf::Color> colorsPreset1{
@@ -35,7 +38,7 @@ private: //VARS
 	{20,0,20},
 	};
 	const std::vector<sf::Color> colorsPreset2{
-	{255,0,40},
+	{40,0,0},
 	{213,67,31},
 	{51,255,121},
 	{62,123,89},
@@ -44,7 +47,7 @@ private: //VARS
 	{100,0,0},
 	};
 	const std::vector<sf::Color> colorsPreset3{
-	{0,255,40},
+	{0,255,0},
 	{213,67,31},
 	{251,255,121},
 	{62,123,89},
@@ -83,13 +86,30 @@ private: //VARS
 	sf::Text currentIterationsText;
 	sf::Text maxIterationsText;
 
-	//Koristim multyset
+	//Koristim multiset
 	std::multiset<std::vector<double>> locations;
 	std::vector<double> locationCord;
 
 	sf::Image mbSetImage;
 	sf::Sprite mbSetSprite;
 	sf::Texture mbSetTexture;
+
+	//RED
+	sf::Image mbSetImageScaled;
+	sf::Sprite mbSetSpriteScaled;
+	sf::Texture mbSetTextureScaled;
+
+	//GREEN
+	sf::Image mbSetImageScaled1;
+	sf::Sprite mbSetSpriteScaled1;
+	sf::Texture mbSetTextureScaled1;
+
+	//BLUE
+	sf::Image mbSetImageScaled2;
+	sf::Sprite mbSetSpriteScaled2;
+	sf::Texture mbSetTextureScaled2;
+
+	sf::Text infoText;
 
 	std::string get_timestamp();
 
@@ -110,16 +130,37 @@ private: //VARS
 	void zoomIn(bool overRide);
 	void zoomOut(bool overRide);
 
+	void miniRedImage();
+	void miniGreenImage();
+	void miniBlueImage();
+
 	//analyse image using multimap Koristim multimap
 	std::multimap <int, int> intValueAndIterationMM;
 
 	//Using priority_queue to store most intresing places
 	std::priority_queue <int> intrestingValues;
+
+	//Using unordered multiset to save and display r g b values trough out the image
+	std::unordered_multiset<int> redValue;
+	std::unordered_multiset<int> greenValue;
+	std::unordered_multiset<int> BlueValue;
+
+	sf::RectangleShape redBarShape;
+	sf::RectangleShape greenBarShape;
+	sf::RectangleShape blueBarShape;
+
+	unsigned long long int redValueInt = 0;
+	unsigned long long int greenValueInt = 0;
+	unsigned long long int blueValueInt = 0;
+
 	sf::Color piexelColor;
 	unsigned long long colorCount = 0;
 	sf::Text analysedImageText;
 	sf::Text analysedImageText2;
 	int getImageAnalyse();
+	int map2(unsigned long long int x, unsigned long long int in_min, unsigned long long int in_max, unsigned long long int out_min, unsigned long long int out_max);
+
+	void decryptImage();
 
 public:
 
