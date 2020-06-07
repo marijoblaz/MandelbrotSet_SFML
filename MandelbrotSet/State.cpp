@@ -25,3 +25,13 @@ void State::endState()
 {
 	this->quit = true;
 }
+
+void State::setImage(sf::Image *image)
+{
+	this->image = *image;
+}
+
+sf::Image State::getImage()
+{
+	return this->image;
+}

@@ -1,6 +1,7 @@
 #pragma once
 #include "Button.h"
 #include "State.h"
+#include "GameEditor.h"
 
 #include <fstream>
 #include <queue>
@@ -16,11 +17,12 @@ private: //VARS
 	sf::Time elapsed1;
 	int interval = 250;
 
+	
+
 	//Koristim map
 	std::map<std::string, Button*> buttons;
 
-	//Koristim multimap
-	
+
 
 	//color presets
 	const std::vector<sf::Color> colorsPreset1{
@@ -108,7 +110,8 @@ private: //VARS
 	void zoomIn(bool overRide);
 	void zoomOut(bool overRide);
 
-	//analyse image
+	//analyse image using multimap Koristim multimap
+	std::multimap <int, int> intValueAndIterationMM;
 
 	//Using priority_queue to store most intresing places
 	std::priority_queue <int> intrestingValues;
@@ -117,7 +120,6 @@ private: //VARS
 	sf::Text analysedImageText;
 	sf::Text analysedImageText2;
 	int getImageAnalyse();
-
 
 public:
 

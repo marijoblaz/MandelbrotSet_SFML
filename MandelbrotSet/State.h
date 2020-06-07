@@ -9,6 +9,9 @@ protected:
 	//Container for pointer states
 	std::stack<State*>* states;
 
+	//image
+	sf::Image image;
+
 	//Init vars
 	sf::RenderWindow* window;
 
@@ -21,9 +24,10 @@ public:
 
 	//Getters
 	const bool& getQuit();
-
-
 	void endState();
+
+	void setImage(sf::Image *image);
+	sf::Image getImage();
 
 	//Virutal functions
 	virtual void update() = 0;

@@ -149,6 +149,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="GameEditor.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="guessTheNumber.cpp" />
     <ClCompile Include="letsBogo.cpp" />
@@ -162,6 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
+    <ClInclude Include="GameEditor.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="guessTheNumber.h" />
     <ClInclude Include="letsBogo.h" />

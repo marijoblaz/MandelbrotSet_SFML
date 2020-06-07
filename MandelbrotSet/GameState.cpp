@@ -98,13 +98,19 @@ void GameState::initButtons()
         sf::Color(255, 255, 255),
         sf::Color(0, 155, 0), this->mWindow, BTN_STANDARD);
 
+    buttons["EDITOR"] = new Button(50, 470, 250, 50,
+        &font, "EDITOR",
+        sf::Color(0, 0, 30),
+        sf::Color(255, 255, 255),
+        sf::Color(0, 0, 155), this->mWindow, BTN_STANDARD);
+
     buttons["SAVE IMAGE"] = new Button(50, 580, 250, 50,
         &font, "SAVE IMAGE",
         sf::Color(0, 0, 0),
         sf::Color(255, 255, 255),
         sf::Color(40, 40, 40), this->mWindow, BTN_STANDARD);
 
-    buttons["AUTO"] = new Button(550, 650, 300, 50,
+    buttons["AUTO"] = new Button(300, 20, 300, 50,
         &font, "DISABLE AUTO ITERATION",
         sf::Color(0, 0, 0),
         sf::Color(0, 255, 0),
@@ -146,9 +152,9 @@ void GameState::initText()
     this->analysedImageText2.setPosition(10, 95);
 
     this->locationText.setFont(this->font);
-    this->locationText.setCharacterSize(15);
+    this->locationText.setCharacterSize(20);
     this->locationText.setColor(sf::Color::White);
-    this->locationText.setPosition(400, 10);
+    this->locationText.setPosition(500, 680);
 }
 
 void GameState::renderButtons()
@@ -184,6 +190,7 @@ void GameState::updateButtons()
 
     //Saves
     if (buttons["ANALYSE"]->isPressed() && elapsed1.asMilliseconds() > interval) {
+        this->intValueAndIterationMM.insert(std::pair <int, int>(getImageAnalyse(), this->maxIter));
         this->intrestingValues.push(getImageAnalyse());
         this->analysedImageText.setString("Most interesting image at: "+std::to_string(intrestingValues.top())+"%");
         this->analysedImageText2.setString("Current image interest at: "+std::to_string(getImageAnalyse())+"%");
@@ -218,6 +225,13 @@ void GameState::updateButtons()
     if (buttons["SAVE LOCATION"]->isPressed() && elapsed1.asMilliseconds() > interval) {
         this->updateLocations();
         
+        clock.restart();
+    }
+
+    //Save loc
+    if (buttons["EDITOR"]->isPressed() && elapsed1.asMilliseconds() > interval) {
+        this->states->push(new GameEditor(this->mWindow, this->states));
+        this->states->top()->setImage(&this->mbSetImage);
         clock.restart();
     }
 }
@@ -293,7 +307,6 @@ int GameState::getImageAnalyse()
     long long out_min = 0;
     long long out_max = 100;
     
-
     
     this->colorCount = 0;
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;;
