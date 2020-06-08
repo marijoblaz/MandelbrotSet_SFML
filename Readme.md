@@ -1,6 +1,6 @@
 # Mandelbrot interactive fractal set using SFML 2.5
 
-Most popular fractal revisited with C++ and SFML 2.5 for SPA class Assigment
+Most popular fractal revisited with C++ and SFML 2.5 for SPA class Assigment / RUN AT x86 release!
 
 ![EXAMPLE2](ex2.png)
 ![EXAMPLE1](ex1.JPG)
@@ -8,7 +8,7 @@ Most popular fractal revisited with C++ and SFML 2.5 for SPA class Assigment
 
 ## Installation
 
-Follow the tutorial at [SFML](https://www.sfml-dev.org/tutorials/2.5/start-vc.php) to install SFML 2.5 32bit and run at x86!.
+Follow the tutorial at [SFML](https://www.sfml-dev.org/tutorials/2.5/start-vc.php) to install SFML 2.5 32bit and run at x86! release.
 
 ## Usage
 
